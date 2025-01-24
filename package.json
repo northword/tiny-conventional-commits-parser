@@ -1,7 +1,7 @@
 {
   "name": "tiny-conventional-commits-parser",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@9.15.4",
   "description": "A tiny conventional commits parser",
   "author": "northword <northword@outlook.com>",
