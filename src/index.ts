@@ -1,14 +1,14 @@
 import type { GitCommit } from './types'
 import { getGitLog, getLastGitTag } from './git'
-import { parseCommit } from './parse'
+import { parseCommit, parseRawCommit } from './parse'
 
 export * from './git'
 export * from './parse'
 export * from './types'
-export * from './utils'
 
 export function getCommits(from?: string, to?: string): GitCommit[] {
   return getGitLog(from, to)
+    .map(parseRawCommit)
     .map(parseCommit)
 }
 

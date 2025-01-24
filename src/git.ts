@@ -1,12 +1,21 @@
-import { execCommand } from './utils'
+import { execSync } from 'node:child_process'
+
+function execCommand(
+  cmd: string,
+  options?: { cwd?: string, throwOnError?: boolean },
+): string {
+  try {
+    return execSync(cmd, { encoding: 'utf8', cwd: options?.cwd }).trim()
+  }
+  catch (error) {
+    if (options?.throwOnError)
+      throw error
+    return ''
+  }
+}
 
 export function getLastGitTag(): string | undefined {
-  try {
-    return execCommand('git describe --tags --abbrev=0')?.split('\n').at(0) || undefined
-  }
-  catch {
-    return undefined
-  }
+  return execCommand('git describe --tags --abbrev=0')?.split('\n').at(0) || undefined
 }
 
 export function getCurrentGitTag(): string | undefined {
@@ -25,15 +34,14 @@ export function getCurrentGitTag(): string | undefined {
  * @example stdout
  *
  * ```bash
- * $ git log --format="%H|%an|%ae|%ad|%s|%d|%b[GIT_LOG_COMMIT_END]" --follow docs/pages/en/integrations/index.md
- * 62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|Neko Ayaka|neko@ayaka.moe|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: Neko Ayaka <neko@ayaka.moe>
- * [GIT_LOG_COMMIT_END]
- * 34357cc0956db77d1fc597327ba880d7eebf67ce|Rizumu Ayaka|rizumu@ayaka.moe|Mon Apr 22 22:51:24 2024 +0800|release: pre-release v2.0.0-rc10| (tag: v2.0.0-rc10)|Signed-off-by: Rizumu Ayaka <rizumu@ayaka.moe>
- * [GIT_LOG_COMMIT_END]
+ * $ git log --format="%h|%s|%an|%ae|%ad|%b[GIT_LOG_COMMIT_END]"
+ * 9cfa09f|feat(scope): commit message|author1|author1@example.com|Thu Jan 23 17:42:15 2025 +0800|breaking changes: this is a breaking change
+ * Co-authored-by: author2 <test@example.com>[GIT_LOG_COMMIT_END]
+ * 0000001|feat(scope): commit message2|author1|author1@example.com|Thu Jan 23 17:42:15 2025 +0800|[GIT_LOG_COMMIT_END]
  * (END)
  * ```
  */
-export const GIT_LOG_FORMAT = '%h|%s|%an|%ae|%ad|%b[GIT_LOG_COMMIT_END]'
+const GIT_LOG_FORMAT = '%h|%s|%an|%ae|%ad|%b[GIT_LOG_COMMIT_END]'
 
 export function getGitLog(from: string | undefined, to = 'HEAD'): string[] {
   return execCommand(`git --no-pager log "${from ? `${from}...${to}` : to}" --pretty="${GIT_LOG_FORMAT}"`)

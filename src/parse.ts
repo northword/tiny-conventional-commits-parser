@@ -1,4 +1,4 @@
-import type { GitCommit, GitCommitAuthor, Reference } from './types'
+import type { GitCommit, GitCommitAuthor, RawGitCommit, Reference } from './types'
 
 // https://www.conventionalcommits.org/en/v1.0.0/
 // https://regex101.com/r/FSfNvA/1
@@ -10,9 +10,22 @@ const PullRequestRE = /\([ a-z]*(#\d+)\s*\)/g
 const IssueRE = /(#\d+)/g
 const BreakingRE = /breaking[ -]changes?:/i
 
-export function parseCommit(commit: string): GitCommit {
+export function parseRawCommit(commit: string): RawGitCommit {
   const [shortHash, message, authorName, authorEmail, data, ..._body] = commit.split('|')
   const body = _body.filter(Boolean).join('\n')
+
+  /// keep-sorted
+  return {
+    author: { name: authorName, email: authorEmail },
+    body,
+    data,
+    message,
+    shortHash,
+  }
+}
+
+export function parseCommit(rawCommit: RawGitCommit): GitCommit {
+  const { shortHash, message, body, data } = rawCommit
 
   const match = message.match(ConventionalCommitRegex)
   const isConventional = match !== null
@@ -40,7 +53,7 @@ export function parseCommit(commit: string): GitCommit {
   description = description.replace(PullRequestRE, '').trim()
 
   // Find all authors
-  const authors: GitCommitAuthor[] = [{ name: authorName, email: authorEmail }]
+  const authors: GitCommitAuthor[] = [rawCommit.author]
   for (const match of body.matchAll(CoAuthoredByRegex)) {
     authors.push({
       name: (match.groups?.name || '').trim(),
