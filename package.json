@@ -13,11 +13,10 @@
   },
   "bugs": "https://github.com/northword/tiny-conventional-commits-parser/issues",
   "keywords": ["tiny-conventional-commits-parser", "conventional-commits", "parser"],
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "type": "./dist/index.d.mts"
     }
   },
   "main": "./dist/index.mjs",
