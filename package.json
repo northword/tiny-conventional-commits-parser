@@ -2,7 +2,7 @@
   "name": "tiny-conventional-commits-parser",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.15.1",
   "description": "A tiny conventional commits parser",
   "author": "northword <northword@outlook.com>",
   "license": "MIT",
