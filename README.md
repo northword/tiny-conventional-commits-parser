@@ -15,6 +15,7 @@ This package does not aim to provide features and APIs compatible with [conventi
 
 ```ts
 import { getRecentCommits } from 'tiny-conventional-commits-parser'
+
 getRecentCommits('v9.10.0', 'HEAD')
 
 const rawCommit = {
