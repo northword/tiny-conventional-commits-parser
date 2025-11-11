@@ -43,8 +43,8 @@ export function getCurrentGitTag(): string | undefined {
  */
 const GIT_LOG_FORMAT = '%h|%s|%an|%ae|%ad|%b[GIT_LOG_COMMIT_END]'
 
-export function getGitLog(from: string | undefined, to = 'HEAD'): string[] {
-  return execCommand(`git --no-pager log "${from ? `${from}...${to}` : to}" --pretty="${GIT_LOG_FORMAT}"`)
+export function getGitLog(from: string | undefined, to = 'HEAD', path?: string): string[] {
+  return execCommand(`git --no-pager log "${from ? `${from}...${to}` : to}" --pretty="${GIT_LOG_FORMAT}" ${path ? `-- ${path}` : ''}`)
     .split('[GIT_LOG_COMMIT_END]\n')
     .filter(Boolean)
 }
