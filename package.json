@@ -2,7 +2,7 @@
   "name": "tiny-conventional-commits-parser",
   "type": "module",
   "version": "0.1.0",
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@10.33.2",
   "description": "A tiny conventional commits parser",
   "author": "northword <northword@outlook.com>",
   "license": "MIT",
@@ -39,15 +39,15 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^8.2.0",
-    "@types/node": "^24.12.0",
+    "@types/node": "^24.12.2",
     "bumpp": "^11.0.1",
-    "eslint": "^10.1.0",
+    "eslint": "^10.3.0",
     "lint-staged": "^16.4.0",
     "simple-git-hooks": "^2.13.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
