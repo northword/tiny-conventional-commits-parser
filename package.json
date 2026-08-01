@@ -45,7 +45,7 @@
     "lint-staged": "^16.4.0",
     "simple-git-hooks": "^2.13.1",
     "tsx": "^4.23.1",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.10"
   },
