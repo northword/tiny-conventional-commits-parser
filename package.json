@@ -38,16 +38,16 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^9.2.0",
+    "@antfu/eslint-config": "^9.4.1",
     "@types/node": "^24.13.3",
     "bumpp": "^11.1.0",
-    "eslint": "^10.8.0",
+    "eslint": "^10.9.1",
     "lint-staged": "^16.4.0",
-    "simple-git-hooks": "^2.13.1",
-    "tsx": "^4.23.1",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.13",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
